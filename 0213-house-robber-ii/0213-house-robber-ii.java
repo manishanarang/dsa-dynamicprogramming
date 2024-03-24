@@ -4,19 +4,14 @@ class Solution {
         if(nums.length == 1) return nums[0];
         if(nums.length == 2) return Math.max(nums[0],nums[1]);
 
-        List<Integer> numList = Arrays.stream(nums).boxed().collect(Collectors.toList());
-        List<Integer> list1 = numList.subList(0,nums.length-1);
-        List<Integer> list2 = numList.subList(1,nums.length);
-
-        return Math.max(helper(list1), helper(list2));
+        int n = nums.length;
+        return Math.max(helper(nums,0,n-2), helper(nums,1,n-1));
     }
 
-    public int helper(List<Integer> nums){
-        Integer[] arr = nums.toArray(new Integer[0]);
-        
+    public int helper(int[] nums, int start, int end){
         int rob1 = 0, rob2 = 0;
-        for(int i = 0; i<arr.length; i++){
-            int newRob = Math.max(arr[i] + rob1, rob2);
+        for(int i = start; i<=end; i++){
+            int newRob = Math.max(nums[i] + rob1, rob2);
             rob1 = rob2;
             rob2 = newRob;
         }
